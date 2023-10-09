@@ -1,16 +1,16 @@
-local wci = {}
+local bsr = {}
 
-wci.frame = CreateFrame("Frame", "FramePlaceholder", UIParent)
-wci.iconFrame = CreateFrame("Frame", "WarCryIconFrame", UIParent)
-wci.iconFrame:SetWidth(40)
-wci.iconFrame:SetHeight(40)
-wci.frame:SetScript("OnEvent", function() wci[event](wci, arg2, arg3) end)
-wci.frame:SetScript("OnUpdate", function() wci["OnUpdate"]() end)
-wci.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
-wci.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
-wci.iconFrame:SetPoint("CENTER", 0, 150)
+bsr.frame = CreateFrame("Frame", "FramePlaceholder", UIParent)
+bsr.iconFrame = CreateFrame("Frame", "BattleShoutReminderFrame", UIParent)
+bsr.iconFrame:SetWidth(46)
+bsr.iconFrame:SetHeight(46)
+bsr.frame:SetScript("OnEvent", function() bsr[event](bsr, arg2, arg3) end)
+bsr.frame:SetScript("OnUpdate", function() bsr["OnUpdate"]() end)
+bsr.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
+bsr.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+bsr.iconFrame:SetPoint("CENTER", 0, 150)
 
-local iconTexture = wci.iconFrame:CreateTexture(nil, "BACKGROUND")
+local iconTexture = bsr.iconFrame:CreateTexture(nil, "BACKGROUND")
 iconTexture:SetAllPoints()
 iconTexture:SetTexture("Interface\\Icons\\Ability_Warrior_BattleShout")
 
@@ -31,33 +31,33 @@ local function UpdateIconVisibility()
         end
 
         if not hasBattleShout then
-            wci.iconFrame:Show()
+            bsr.iconFrame:Show()
         else
-            wci.iconFrame:Hide()
+            bsr.iconFrame:Hide()
         end
     else
-        wci.iconFrame:Hide()
+        bsr.iconFrame:Hide()
     end
 end
 
 local interval = 1  -- Intervalle en secondes entre les messages.
 local lastMessageTime = 0
 
-function wci:OnUpdate()
+function bsr:OnUpdate()
     if not lastMessageTime or lastMessageTime < GetTime() - 1 then
         lastMessageTime = GetTime()
-        --DEFAULT_CHAT_FRAME:AddMessage("Update WCI")
+        --DEFAULT_CHAT_FRAME:AddMessage("Update BSR")
         UpdateIconVisibility()
     end
 end
 
-function wci:PLAYER_REGEN_DISABLED()
+function bsr:PLAYER_REGEN_DISABLED()
     -- DEFAULT_CHAT_FRAME:AddMessage("PLAYER_REGEN_DISABLED triggered")
 
     UpdateIconVisibility()
 end
 
-function wci:PLAYER_REGEN_ENABLED()
+function bsr:PLAYER_REGEN_ENABLED()
     UpdateIconVisibility()
 end
 

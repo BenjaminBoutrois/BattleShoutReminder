@@ -1,7 +1,7 @@
 ## Interface: 11200
-## Title: War Cry Icon
+## Title: BattleShoutReminder
 ## Author: Gzor
 ## Version: 1.0
 ## Notes: Displays a Battle Shout icon in combat if player doesn't have one.
 
-WarCryIcon.lua
+BattleShoutReminder.lua
